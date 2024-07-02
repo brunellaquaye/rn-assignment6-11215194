@@ -8,9 +8,11 @@ import {
   SafeAreaView,
 } from "react-native";
 import React from "react";
-import Clothes from "./components/Clothes";
+import Home from "./components/Home";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const clothesData = [
     {
       id: 1,
@@ -78,40 +80,43 @@ const HomeScreen = () => {
     },
   ];
   return (
-    <SafeAreaView style = {{ flex: 1}}>
-    <View style = {{backgroundColor: "white"}}>
-      <View style={styles.title}>
-        <Text style = {styles.topic}>OUR STORY</Text>
-        <View style = {styles.menu}>
-        <View style = {styles.filter}>
-          <Image source={require("./assets/Listview.png")} />
-          </View>
-          <View style = {styles.filter}>
-            <Image source={require("./assets/Filter.png")} />
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ backgroundColor: "white" }}>
+        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+          <Image source={require("./assets/Menu.png")} style={styles.drawerMenu} />
+        </TouchableOpacity>
+        <View style={styles.title}>
+          <Text style={styles.topic}>OUR STORY</Text>
+          <View style={styles.menu}>
+            <View style={styles.filter}>
+              <Image source={require("./assets/Listview.png")} />
+            </View>
+            <View style={styles.filter}>
+              <Image source={require("./assets/Filter.png")} />
+            </View>
           </View>
         </View>
-      </View>
 
-      <View>
-        <FlatList
-          data={clothesData}
-          vertical
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          columnWrapperStyle={{ justifyContent: "space-around" }}
-          renderItem={({ item }) => (
-              <Clothes
+        <View>
+          <FlatList
+            data={clothesData}
+            vertical
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            columnWrapperStyle={{ justifyContent: "space-around" }}
+            renderItem={({ item }) => (
+              <Home
                 image={item.image}
                 icon={item.icon}
                 title={item.title}
                 description={item.description}
                 price={item.price}
               />
-          )}
-          keyExtractor={(item) => item.id.toString()}
-        />
+            )}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </View>
       </View>
-    </View>
     </SafeAreaView>
   );
 };
@@ -121,28 +126,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  drawerMenu: {
+    width: 20,
+    height: 20,
+    margin: 10,
+    marginTop: 40,
+    marginLeft: 20,
+  },
   menu: {
     flexDirection: "row",
     justifyContent: "space-between",
     // backgroundColor: "black",
   },
-  topic:{
+  topic: {
     fontSize: 24,
     fontWeight: "400",
     marginLeft: 15,
-    marginTop: 10,
+    marginTop: 30,
     letterSpacing: 2,
   },
-  filter:{
+  filter: {
     padding: 10,
     backgroundColor: "#F7F7F7",
-   justifyContent: "center",
+    justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
     marginRight: 20,
-
-  }
-
+    marginTop: 30,
+  },
 });
 
 export default HomeScreen;
