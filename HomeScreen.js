@@ -10,6 +10,9 @@ import {
 import React from "react";
 import Home from "./components/Home";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import { SimpleLineIcons } from '@expo/vector-icons';
+
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -82,9 +85,20 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ backgroundColor: "white" }}>
+      <View style = {{flexDirection:"row", justifyContent:""}}>
         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
           <Image source={require("./assets/Menu.png")} style={styles.drawerMenu} />
         </TouchableOpacity>
+        <TouchableOpacity>
+        <Image style={styles.logo} source={require("./assets/Logo.png")} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Ionicons name="search-outline" size={24} color="black" style={{marginTop:40, marginRight: 30,justifyContent:"flex-end"} }/>
+          </TouchableOpacity>
+          <TouchableOpacity>
+          <SimpleLineIcons name="handbag" size={24} color="black"style={{marginTop:40, marginRight: 0 , justifyContent:"flex-end"}} /> 
+          </TouchableOpacity>      
+             </View>
         <View style={styles.title}>
           <Text style={styles.topic}>OUR STORY</Text>
           <View style={styles.menu}>
@@ -126,12 +140,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  logo: {
+    marginLeft: 100,
+    marginTop: 40,
+    marginRight: 60
+  },
   drawerMenu: {
     width: 20,
     height: 20,
     margin: 10,
     marginTop: 40,
-    marginLeft: 20,
+    //marginLeft: 20,
   },
   menu: {
     flexDirection: "row",
