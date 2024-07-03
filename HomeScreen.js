@@ -7,15 +7,20 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import React from "react";
+import React, {useContext} from "react";
 import Home from "./components/Home";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { CartContext } from "./components/CartContext";
+
 
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const { addToCart, getTotalItems } = useContext(CartContext);
+  const totalItems = getTotalItems();
+
   const clothesData = [
     {
       id: 1,
@@ -125,6 +130,8 @@ const HomeScreen = () => {
                 title={item.title}
                 description={item.description}
                 price={item.price}
+                onPress={() => addToCart(item)}
+
               />
             )}
             keyExtractor={(item) => item.id.toString()}
